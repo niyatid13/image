@@ -1,0 +1,14 @@
+
+#Histogram with matlab function
+
+clc;
+clear;
+close;
+% Read the image
+i = imread('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpOCIPOxKGbMo_LhjiZ3kQquwhDkjuNWNPUg&usqp=CAU');
+ih = histeq(i);
+subplot(2,2,1), imshow(i), title('Original Image');
+subplot(2,2,2), imshow(ih), title('Histogram Equalized Image');
+subplot(2,2,3), imhist(i), title('Histogram of Original Image');
+subplot(2,2,4), imhist(ih), title('Histogram of Equalized Image');
+

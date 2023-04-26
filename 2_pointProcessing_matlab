@@ -1,0 +1,105 @@
+clc;
+clear;
+I = imread("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpOCIPOxKGbMo_LhjiZ3kQquwhDkjuNWNPUg&usqp=CAU");
+subplot(3,3,1);
+imshow(I);
+title("Original Image");
+G=rgb2gray(I);
+subplot(3,3,2);
+imshow(G);
+title("gray scale");
+[h,w] = size(G);
+%negative image
+N=255-G;
+subplot(3,3,3);
+imshow(N);
+title("Negative Image");
+%negative using for loop
+for i=1:h
+   for j=1:w
+       B1(i,j)=255-G(i,j);
+   end
+end
+subplot(3,3,4);
+imshow(B1);
+title("Digital Negative");
+%thresholding
+x=input("Enter X: ");
+for i=1:h
+   for j=1:w
+       if(G(i,j)>x)
+           b(i,j)=255;
+       else
+           b(i,j)=0;
+       end
+   end
+end
+subplot(3,3,5);
+imshow(b);
+title("thresholding");
+%contrast stretching
+C = imadjust(G,stretchlim(G),[]);
+subplot(3,3,6);
+imshow(C);
+title("Contrast image");
+%log transform
+logt= zeros(h,w);
+gray2= double(G);
+c=0.2;
+for i= 1:h
+   for j=1:w
+       logt(i,j)=(c*log(gray2(i,j)+1));
+   end
+end
+subplot(3,3,7);
+imshow(logt);
+title("Log transform")
+%Power Law Transform:
+plaw=zeros(h,w);
+gamma=input("Enter gamma(gamma<1):");
+c=input("Enter the value of c: ");
+gray1 = double(G);
+%c=0.2;
+for i=1:h
+   for j=1:w
+       plaw(i,j)=(c.*gray1(i,j))^gamma;
+   end
+end
+subplot(3,3,8);
+imshow(uint8(plaw));
+title("Power Law Transform(gamma<1)");
+%gamma>1
+plaw=zeros(h,w);
+gamma=input("Enter gamma(gamma>1):");
+c=input("Enter the value of c: ");
+gray2 = double(G);
+%c=0.2;
+for i=1:h
+   for j=1:w
+       plaw(i,j)=(c.*gray2(i,j))^gamma;
+   end
+end
+subplot(3,3,9);
+imshow(uint8(plaw));
+title("gamma>1");
+%Bit plane Slicing and Extraction using loop
+n1 =0
+for z=1:8
+   n1 = n1+1;
+   s = 255-(2^(n1-1));
+   s1 = 2^(n1-1);
+   for i = 1:h
+       for j= 1:w
+           f(i,j) = bitand(G(i,j),s);
+           g(i,j) = bitand(G(i,j),s1);
+       end
+   end
+   figure(3);
+   subplot(4,3,z);
+   imshow(f);
+   title("Bit Plane Removed");
+   figure(4);
+   subplot(4,3,z);
+   imshow(g);
+   title("Bit Plane Slicing");
+end

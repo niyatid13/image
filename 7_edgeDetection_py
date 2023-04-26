@@ -1,0 +1,50 @@
+from io import BytesIO
+import numpy as np       # library used for working with arrays
+import matplotlib.pylab as plt  # library used for ploting, graph
+import cv2         # library for Open Source Computer vision library
+from PIL import Image    # Python Imaging Library for load, display, save etc
+from google.colab.patches import cv2_imshow
+from google.colab import files
+uploaded = files.upload()
+img=Image.open(BytesIO(uploaded['building.jpg']))  #try wire.tif also
+plt.imshow(img)
+img = cv2.imread("building.jpg")
+img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+plt.imshow(img,cmap=plt.cm.gray)
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define input image
+#img = np.array([[88, 38, 41, 42, 42], [98, 32, 38, 121, 33], [12, 255, 46, 1, 10], [123, 25, 246, 0, 19], [12, 5, 46, 10, 11]])
+
+# Define list of masks
+masks = [
+    np.ones([3, 3], dtype=int) / 9,  # Averaging
+    np.array([[-1, 0], [0, 1]]),     # Roberts 1
+    np.array([[0, -1], [1, 0]]),     # Roberts 2
+    np.array([[-1, -1, -1], [0, 0, 0], [1, 1, 1]]),  # Prewitt horizontal
+    np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]),  # Prewitt vertical
+    np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]]),  # Sobel horizontal
+    np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]),  # Sobel vertical
+    np.array([[-1, -1, -1], [2, 2, 2], [-1, -1, -1]]),  # Horizontal 2nd order
+    np.array([[2, -1, -1], [-1, 2, -1], [-1, -1, 2]]),  # 45 degrees
+    np.array([[-1, 2, -1], [-1, 2, -1], [-1, 2, -1]]),  # Vertical 2nd order
+    np.array([[-1, -1, 2], [-1, 2, -1], [2, -1, -1]]),  # -45 degrees
+    np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]])  # 2nd order mask
+]
+
+# Loop over masks and apply them to the input image
+for mask in masks:
+    img_new = np.zeros(img.shape)
+
+    for i in range(1, img.shape[0]-1):
+        for j in range(1, img.shape[1]-1):
+            temp = img[i-1, j-1]*mask[0, 0] + img[i-1, j]*mask[0, 1] + img[i, j-1]*mask[1, 0] + img[i, j]*mask[1, 1]
+            img_new[i, j] = temp
+    
+    img_new = img_new.astype(np.uint8)
+    plt.imshow(img_new, cmap=plt.cm.gray)
+    plt.title(f'Mask:\n{mask}')
+    plt.show()

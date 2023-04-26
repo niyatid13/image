@@ -1,0 +1,57 @@
+
+clc;
+clear all;
+close all;
+%Declaring matrix in matlab
+A = [1 4; 2 5; 3 6];
+%Populating matrix elements with zeroes
+A = [1 4; 2 5; 3 6];
+sz = size(A);
+X = zeros(sz);
+%Knowing the size of image
+image=imread('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpOCIPOxKGbMo_LhjiZ3kQquwhDkjuNWNPUg&usqp=CAU');
+[x,y]=size(image);
+%Reading a image file
+image=imread('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpOCIPOxKGbMo_LhjiZ3kQquwhDkjuNWNPUg&usqp=CAU');
+figure(1);
+subplot(4,4,1);
+imshow(image);
+title("Original image");     %Display the image
+%Draw image profile
+info = imfinfo('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpOCIPOxKGbMo_LhjiZ3kQquwhDkjuNWNPUg&usqp=CAU');
+%Resize given image
+i1 = imresize(image,[500,300]);
+subplot(4,4,2);
+imshow(i1);
+title('Resized image');
+%Converting colour image to grayscale
+I = im2gray(image);
+subplot(4,4,3);
+imshow(I);
+title("Grayscale image");
+%Converting colour image to binary image
+I2 = im2bw(image, 0.5);
+subplot(4,4,4);
+imshow(I2);
+title("Binary image");
+%Seperate image into 3 seperate rgb
+p = image;
+p(:,:,:) = 0;
+subplot(4,4,5);
+imshow(p);
+title('RBG absent image');
+p = image;
+p(:,:,[2,3]) = 0;
+subplot(4,4,6);
+imshow(p);
+title('red absent image');
+p = image;
+p(:,:,[1,3]) = 0;
+subplot(4,4,7);
+imshow(p);
+title('Green absent image');
+p = image;
+p(:,:,[1,2]) = 0;
+subplot(4,4,8);
+imshow(p);
+title('Blue absent image');

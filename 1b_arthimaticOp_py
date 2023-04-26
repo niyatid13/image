@@ -1,0 +1,68 @@
+
+clc;
+clear all;
+close all;
+A = [1 1 0 0;0 0 1 1;1 0 1 0;0 1 0 1]; %Create an Image
+figure(1);
+subplot(4,4,1);
+imshow(A);     %Show an Image
+title('Image 1');
+B = A';
+subplot(4,4,2);
+imshow(B);     %Show an Image
+title('Image 2');
+
+
+%%Arithmatic operations
+C = imadd(A,B);
+subplot(4,4,3);
+imshow(C);     %Show an Image
+title('Addition');
+D = imsubtract(A,B);
+subplot(4,4,4);
+imshow(D);     %Show an Image
+title('Subtraction');
+
+
+%Logical operations
+E = and(A,B);
+subplot(4,4,5);
+imshow(E);     %Show an Image
+title('AND');
+F = or(A,B);
+subplot(4,4,6);
+imshow(F);     %Show an Image
+title('OR');
+subplot(4,4,7);
+imshow(~(E));     %Show an Image
+title('NAND');
+subplot(4,4,8);
+imshow(~(F));     %Show an Image
+title('NOR');
+G = xor(A,B);
+subplot(4,4,9);
+imshow(G);     %Show an Image
+title('EXOR');
+subplot(4,4,10);
+imshow(~(G));     %Show an Image
+title('EX-NOR');
+
+H = bitand(A,B);
+subplot(4,4,11);
+imshow(H);     %Show an Image
+title('Bitwise AND');
+
+J = bitor(A,B);
+subplot(4,4,12);
+imshow(J);     %Show an Image
+title('Bitwise OR');
+
+subplot(4,4,13);
+imshow(~(H));     %Show an Image
+title('Bitwise NAND');
+
+subplot(4,4,14);
+imshow(~(J));     %Show an Image
+title('Bitwise NOR');
+
+

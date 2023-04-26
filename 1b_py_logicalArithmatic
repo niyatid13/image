@@ -1,0 +1,152 @@
+#import libraries
+import cv2
+from matplotlib import pyplot as plt
+
+# create figure
+fig = plt.figure(figsize=(10, 7))
+
+
+# setting values to rows and column variables
+rows = 4
+columns = 4
+
+
+# reading images
+Image1 = cv2.imread("/content/star1.jpg")
+Image2 = cv2.imread("/content/dot.jpg")
+img1 = cv2.imread('/content/circle1.png')
+img2 = cv2.imread('/content/half.png')
+
+Image1 = cv2.cvtColor(Image1, cv2.COLOR_BGR2RGB)
+Image2 = cv2.cvtColor(Image2, cv2.COLOR_BGR2RGB)
+img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+
+# Adds a subplot at the 1st position
+fig.add_subplot(rows, columns, 1)
+
+
+# showing image
+plt.imshow(Image1)
+plt.axis('off')
+plt.title("First")
+
+
+# Adds a subplot at the 2nd position
+fig.add_subplot(rows, columns, 2)
+
+
+# showing image
+plt.imshow(Image2)
+plt.axis('off')
+plt.title("Second")
+
+
+# Adds a subplot at the 1st position
+fig.add_subplot(rows, columns, 5)
+
+
+# showing image
+plt.imshow(img1)
+plt.axis('off')
+plt.title("Third")
+
+
+# Adds a subplot at the 2nd position
+fig.add_subplot(rows, columns, 6)
+
+
+# showing image
+plt.imshow(img2)
+plt.axis('off')
+plt.title("Fourth")
+
+
+#Image3 = Image1 + Image2  #Addition
+Image3=cv2.subtract(Image1,Image2)
+
+
+# Adds a subplot at the 3rd position
+fig.add_subplot(rows, columns, 3)
+  
+# showing image
+plt.imshow(Image3)
+plt.axis('off')
+plt.title("Addition")
+
+
+#Image4 = Image1 - Image2
+Image4 =cv2.add(Image1,Image2)
+
+
+# Adds a subplot at the 4th position
+fig.add_subplot(rows, columns, 4)
+  
+# showing image
+plt.imshow(Image4)
+plt.axis('off')
+plt.title("Subtraction")
+
+
+Image5 = cv2.bitwise_and(img1, img2, mask = None)
+
+
+# Adds a subplot at the 5th position
+fig.add_subplot(rows, columns, 7)
+  
+# showing image
+plt.imshow(Image5)
+plt.axis('off')
+plt.title("Bitwise AND")
+
+
+Image6 = cv2.bitwise_or(img1, img2, mask = None)
+
+
+# Adds a subplot at the 6th position
+fig.add_subplot(rows, columns, 8)
+  
+# showing image
+plt.imshow(Image6)
+plt.axis('off')
+plt.title("Bitwise OR")
+
+
+Image7 = cv2.bitwise_xor(img1, img2, mask = None)
+
+
+# Adds a subplot at the 6th position
+fig.add_subplot(rows, columns, 9)
+  
+# showing image
+plt.imshow(Image7)
+plt.axis('off')
+plt.title("Bitwise XOR")
+
+
+Image8 = cv2.bitwise_not(img1, mask = None)
+
+
+# Adds a subplot at the 6th position
+fig.add_subplot(rows, columns, 10)
+  
+# showing image
+plt.imshow(Image8)
+plt.axis('off')
+plt.title("Bitwise NOT1")
+
+
+Image9 = cv2.bitwise_not(img2, mask = None)
+
+
+# Adds a subplot at the 6th position
+fig.add_subplot(rows, columns, 11)
+  
+# showing image
+plt.imshow(Image9)
+plt.axis('off')
+plt.title("Bitwise NOT2")
+
+
+
+I
